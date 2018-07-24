@@ -1,0 +1,37 @@
+group 'small_spark_example'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'scala'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenLocal()
+    mavenCentral()
+    maven {
+        url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
+}
+
+dependencies {
+    compile "org.scala-lang:scala-library:2.11.8"
+    compile "org.scala-lang:scala-reflect:2.11.8"
+    compile "org.scala-lang:scala-compiler:2.11.8"
+
+    compile 'org.apache.spark:spark-mllib_2.11:2.1.0'
+    compile 'org.apache.spark:spark-sql_2.11:2.1.0'
+    compile 'org.apache.spark:spark-streaming-flume-assembly_2.11:2.1.0'
+    compile 'org.apache.spark:spark-graphx_2.11:2.1.0'
+    compile 'org.apache.spark:spark-launcher_2.11:2.1.0'
+    compile 'org.apache.spark:spark-catalyst_2.11:2.1.0'
+    compile 'org.apache.spark:spark-streaming_2.11:2.1.0'
+    compile 'org.apache.spark:spark-core_2.11:2.1.0'
+}
+
+task run(type: JavaExec, dependsOn: classes) {
+    main = 'training.ReadTest'
+    //classpath = sourceSets.main.runtimeClasspath
+    classpath sourceSets.main.runtimeClasspath
+    //classpath configurations.runtime
+}
